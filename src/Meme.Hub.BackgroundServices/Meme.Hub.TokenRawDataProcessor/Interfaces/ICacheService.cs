@@ -1,7 +1,15 @@
-﻿namespace Meme.Hub.TokenRawDataProcessor.Interfaces
+﻿using Microsoft.AspNetCore.OpenApi;
+using Microsoft.AspNetCore.Http.HttpResults;
+namespace Meme.Hub.TokenRawDataProcessor.Interfaces
 {
     public interface ICacheService
     {
+        Task AddItemToList(string item, TimeSpan expiration);
+
+        Task<List<string>> GetItemsFromList();
+
+        Task RemoveExpiredItemsAsync();
+
         T? GetData<T>(string key);
 
         /// <summary>

@@ -3,6 +3,7 @@ using Meme.Hub.TokenRawDataProcessor.Interfaces;
 using Meme.Hub.TokenRawDataProcessor.Services;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
+using Meme.Hub.TokenRawDataProcessor.Controllers;
 
 namespace Meme.Hub.TokenRawDataProcessor
 {
@@ -30,7 +31,17 @@ namespace Meme.Hub.TokenRawDataProcessor
             var multiplexer = ConnectionMultiplexer.Connect(connectionString!);
             builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
+                        builder.Services.AddEndpointsApiExplorer();
+
+                        builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
+
+                        if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+};
 
             // Configure the HTTP request pipeline.
 
@@ -40,6 +51,8 @@ namespace Meme.Hub.TokenRawDataProcessor
 
 
             app.MapControllers();
+
+                        app.MapTokenDataModelEndpoints();
 
             app.Run();
         }
