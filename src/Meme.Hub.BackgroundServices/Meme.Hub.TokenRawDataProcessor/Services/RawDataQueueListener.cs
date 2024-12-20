@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Meme.Domain.Models.Settings;
+using Meme.Hub.TokenRawDataProcessor.Interfaces;
 using Microsoft.Extensions.Options;
 
 

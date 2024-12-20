@@ -1,6 +1,6 @@
 ﻿namespace Meme.Hub.TokenRawDataProcessor.Models
 {
-    public class TokenDataRecieved
+    public class RawTokenDataModel
     {
         public string? Signature { get; set; }
         public string? Mint { get; set; }
