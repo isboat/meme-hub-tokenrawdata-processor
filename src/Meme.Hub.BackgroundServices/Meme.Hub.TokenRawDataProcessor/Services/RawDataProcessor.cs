@@ -1,6 +1,6 @@
-﻿using Meme.Hub.TokenRawDataProcessor.Constants;
+﻿using Meme.Domain.Models.TokenModels;
+using Meme.Hub.TokenRawDataProcessor.Constants;
 using Meme.Hub.TokenRawDataProcessor.Interfaces;
-using Meme.Hub.TokenRawDataProcessor.Models;
 using Newtonsoft.Json;
 
 namespace Meme.Hub.TokenRawDataProcessor.Services
