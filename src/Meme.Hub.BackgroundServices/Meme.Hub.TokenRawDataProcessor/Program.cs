@@ -37,11 +37,11 @@ namespace Meme.Hub.TokenRawDataProcessor
 
             var app = builder.Build();
 
-                        if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-};
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            };
 
             // Configure the HTTP request pipeline.
 
@@ -51,8 +51,6 @@ namespace Meme.Hub.TokenRawDataProcessor
 
 
             app.MapControllers();
-
-                        app.MapTokenDataModelEndpoints();
 
             app.Run();
         }

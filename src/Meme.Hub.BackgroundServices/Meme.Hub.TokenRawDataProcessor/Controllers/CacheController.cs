@@ -1,7 +1,7 @@
 using Meme.Hub.TokenRawDataProcessor.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Meme.Hub.TokenRawDataProcessor
+namespace Meme.Hub.TokenRawDataProcessor.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -13,7 +13,6 @@ namespace Meme.Hub.TokenRawDataProcessor
         {
             _cacheService = cacheService;
         }
-
 
         [HttpDelete("purge")]
         public async Task Purge()

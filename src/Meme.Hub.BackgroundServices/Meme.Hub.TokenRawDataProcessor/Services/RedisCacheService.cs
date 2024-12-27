@@ -33,7 +33,7 @@ namespace Meme.Hub.TokenRawDataProcessor.Services
         { 
             double currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(); 
             long removedCount = await _db.SortedSetRemoveRangeByScoreAsync(_sortedSetKey, 0, currentTimestamp); 
-            Console.WriteLine($"Removed {removedCount} expired items."); 
+            // Console.WriteLine($"Removed {removedCount} expired items."); 
         }
 
         public T? GetData<T>(string key)
