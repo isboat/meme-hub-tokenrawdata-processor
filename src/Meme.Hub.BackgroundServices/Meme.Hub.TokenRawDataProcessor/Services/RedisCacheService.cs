@@ -1,4 +1,5 @@
-﻿using Meme.Hub.TokenRawDataProcessor.Interfaces;
+﻿using Meme.Domain.Models.Constants;
+using Meme.Hub.TokenRawDataProcessor.Interfaces;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -7,7 +8,6 @@ namespace Meme.Hub.TokenRawDataProcessor.Services
     public class RedisCacheService: ICacheService
     {
         private readonly IDatabase _db; 
-        private readonly string _sortedSetKey = "mySortedSet";
 
         public RedisCacheService(IConnectionMultiplexer redis)
         {
@@ -16,13 +16,13 @@ namespace Meme.Hub.TokenRawDataProcessor.Services
         public async Task AddItemToList(string item, TimeSpan expiration) 
         {
             double score = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + expiration.TotalSeconds; 
-            await _db.SortedSetAddAsync(_sortedSetKey, item, score);
+            await _db.SortedSetAddAsync(CacheConstants.SortedSetKey, item, score);
         }
 
         public async Task<List<string>> GetItemsFromList() 
         {
             double currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(); 
-            var items = await _db.SortedSetRangeByScoreAsync(_sortedSetKey, 0, currentTimestamp, Exclude.Stop); 
+            var items = await _db.SortedSetRangeByScoreAsync(CacheConstants.SortedSetKey, 0, currentTimestamp, Exclude.Stop); 
             List<string> itemList = new List<string>(); 
             foreach (var item in items) { itemList.Add(item.ToString()); }
 
@@ -32,7 +32,7 @@ namespace Meme.Hub.TokenRawDataProcessor.Services
         public async Task RemoveExpiredItemsAsync() 
         { 
             double currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(); 
-            long removedCount = await _db.SortedSetRemoveRangeByScoreAsync(_sortedSetKey, 0, currentTimestamp); 
+            long removedCount = await _db.SortedSetRemoveRangeByScoreAsync(CacheConstants.SortedSetKey, 0, currentTimestamp); 
             // Console.WriteLine($"Removed {removedCount} expired items."); 
         }
 
